@@ -33,7 +33,7 @@ namespace ModularDebugSystem.Debug
 
             foreach (var wrapper in debugData)
             {
-                _debugDataDict.Add(wrapper.logType, wrapper.LOGColor);
+                _debugDataDict.TryAdd(wrapper.logType, wrapper.LOGColor);
             }
         }
     }

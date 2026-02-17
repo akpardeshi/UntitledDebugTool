@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7056046101897fc4296e37a92dc57b6b, type: 3}
   m_Name: DebugSystem2
   m_EditorClassIdentifier: Assembly-CSharp::ModularDebugSystem.Debug.DebugChannel
-  canBeDebugged: 0
+  canBeDebugged: 1
   moduleName: Debug System 2
   debugData:
   - logType: 0

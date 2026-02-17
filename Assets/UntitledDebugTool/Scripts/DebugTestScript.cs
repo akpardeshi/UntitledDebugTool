@@ -1,4 +1,3 @@
-using EventChannel.ScriptableEvents;
 using UnityEngine;
 
 namespace ModularDebugSystem.Debug

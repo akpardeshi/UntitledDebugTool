@@ -243,6 +243,7 @@ MonoBehaviour:
   debugChannels:
   - {fileID: 11400000, guid: 4e123e3ab01edaf4d9a595bf2217013c, type: 2}
   - {fileID: 11400000, guid: a6057a5e70ba0be449aec9bea4978b8f, type: 2}
+  defaultDebugChannel: {fileID: 11400000, guid: 4e123e3ab01edaf4d9a595bf2217013c, type: 2}
 --- !u!1 &1825326352
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,8 +288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5808ab81cf8cdef42a9855c163f85cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ModularDebugSystem.Debug.DebugTestScript
-  <DebugChannel>k__BackingField: {fileID: 11400000, guid: 4e123e3ab01edaf4d9a595bf2217013c, type: 2}
-  <RegisterDebugChannel>k__BackingField: {fileID: 11400000, guid: e39e82d2c7c636741b62e17f0fffadbb, type: 2}
 --- !u!1 &2073011792
 GameObject:
   m_ObjectHideFlags: 0

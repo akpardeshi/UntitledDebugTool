@@ -8,7 +8,6 @@ namespace ModularDebugSystem.Debug
 
         private void Awake()
         {
-            UnityEngine.Debug.Log($"manager: {manager == null}");
             ModularDebugger.Initialize(manager);
         }
     }

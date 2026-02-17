@@ -9,7 +9,7 @@ namespace ModularDebugSystem.Debug
         [SerializeField] private bool canBeDebugged;
         [SerializeField] private string moduleName;
         [SerializeField] DebugDataWrapper [] debugData;
-
+        
         private readonly Dictionary<DebugLogType, Color> _debugDataDict = new();
         
         public string ModuleName => moduleName;

@@ -11,6 +11,8 @@ namespace ModularDebugSystem.Debug
         
         [SerializeField] DebugChannel []  debugChannels;
         
+        [SerializeField] DebugChannel defaultDebugChannel;
+        
         private bool _isInitialized;
         
         #endregion
@@ -47,7 +49,8 @@ namespace ModularDebugSystem.Debug
 
         public DebugChannel GetDebugChannel(string channelName)
         {
-            return _debugChannels.GetValueOrDefault(channelName);
+            DebugChannel debugChannel = _debugChannels.GetValueOrDefault(channelName);
+            return debugChannel == null ? defaultDebugChannel : debugChannel;
         }
         
         #endregion

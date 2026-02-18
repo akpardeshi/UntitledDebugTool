@@ -4,8 +4,9 @@ namespace ModularDebugSystem.Debug
 {
     public enum DebugLogType
     {
-        Debug = 0,
-        Warning = 1,
-        Error = 2
+        None = 0,
+        Debug = 1,
+        Warning = 2,
+        Error = 3
     }
 }

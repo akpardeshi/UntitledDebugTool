@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ModularDebugSystem.Debug.DebugBootstrapper
   manager: {fileID: 1302899910}
+  debugChannel: {fileID: 11400000, guid: 4e123e3ab01edaf4d9a595bf2217013c, type: 2}
 --- !u!1 &1302899908
 GameObject:
   m_ObjectHideFlags: 0

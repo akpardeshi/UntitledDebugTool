@@ -34,9 +34,14 @@ namespace ModularDebugSystem.Debug
         {
             if (_isInitialized) return;
 
+            var color = ColorUtility.ToHtmlStringRGBA(Color.yellowNice);
+            
             foreach (DebugChannel debugChannel in debugChannels)
             {
-                _debugChannels.TryAdd(debugChannel.ModuleName, debugChannel);
+                if (_debugChannels.TryAdd(debugChannel.ModuleName, debugChannel)) continue;
+
+                UnityEngine.Debug.Log(
+                    $"[<b><i><color=#{color}>Debug Channel</color></i></b>]: <color=#{color}>The <b><i>Debug Channel</i></b> with name <b><i>{debugChannel.name}</i></b> already exist</color>");
             }
 
             _isInitialized = true;

@@ -8,14 +8,21 @@ namespace ModularDebugSystem.Debug
     {
         [SerializeField] private bool canBeDebugged;
         [SerializeField] private string moduleName;
-        [SerializeField] DebugDataWrapper [] debugData;
-        
-        private readonly Dictionary<DebugLogType, Color> _debugDataDict = new();
-        
+        [SerializeField] DebugDataWrapper[] debugData;
+
+        private readonly Dictionary<DebugLogType, DebugDataWrapper> _debugDataDict = new();
+
         public string ModuleName => moduleName;
         public bool CanBeDebugged => canBeDebugged;
-        
-        public Dictionary<DebugLogType, Color> DebugDataDict => _debugDataDict;
+
+        public DebugDataWrapper GetDebugDataWrapper(DebugLogType logType)
+        {
+            if (_debugDataDict.TryGetValue(logType, out DebugDataWrapper wrapper)) return wrapper;
+
+            Color color = GetColor(logType);
+            DebugDataWrapper dataWrapper = new(logType, color, color);
+            return dataWrapper;
+        }
 
         void OnEnable()
         {
@@ -33,7 +40,26 @@ namespace ModularDebugSystem.Debug
 
             foreach (var wrapper in debugData)
             {
-                _debugDataDict.TryAdd(wrapper.logType, wrapper.LOGColor);
+                _debugDataDict.TryAdd(wrapper.logType, wrapper);
+            }
+        }
+
+        private Color GetColor(DebugLogType logType)
+        {
+            switch (logType)
+            {
+                case DebugLogType.Debug:
+                    return Color.white;
+
+                case DebugLogType.Warning:
+                    return Color.yellowNice;
+
+                case DebugLogType.Error:
+                    return Color.red;
+
+                case DebugLogType.None:
+                default:
+                    return Color.white;
             }
         }
     }

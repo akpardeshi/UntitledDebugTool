@@ -6,10 +6,6 @@ namespace ModularDebugSystem.Debug
     {
         private static DebugManager _debugManager;
 
-        private static readonly string WhiteClrString = ColorUtility.ToHtmlStringRGBA(Color.wheat);
-        private static readonly string YellowClrString = ColorUtility.ToHtmlStringRGBA(Color.yellowNice);
-        private static readonly string RedClrString = ColorUtility.ToHtmlStringRGBA(Color.red);
-        
         public static void Initialize(DebugManager debugManager)
         {
             _debugManager = debugManager;
@@ -17,42 +13,76 @@ namespace ModularDebugSystem.Debug
 
         public static void Log(string channelName, string message, GameObject go = null)
         {
-            var debugChannel = _debugManager.GetDebugChannel(channelName);
-
-            if (!debugChannel.CanBeDebugged) return;
-
-            debugChannel.DebugDataDict.TryGetValue(DebugLogType.Debug, out Color clr);
-
-            var color = ColorUtility.ToHtmlStringRGBA(clr);
-
-            UnityEngine.Debug.Log(
-                $"[<b><i><color=#{WhiteClrString}>{channelName}</color></i></b>]: <color=#{color}>{message}</color>", go);
+            LogInternal(channelName, message, DebugLogType.Debug, go);
         }
 
         public static void LogWarning(string channelName, string message, GameObject go = null)
         {
-            var debugChannel = _debugManager.GetDebugChannel(channelName);
-
-            if (!debugChannel.CanBeDebugged) return;
-
-            debugChannel.DebugDataDict.TryGetValue(DebugLogType.Warning, out Color clr);
-            var color = ColorUtility.ToHtmlStringRGBA(clr);
-
-            UnityEngine.Debug.LogWarning(
-                $"[<b><i><color=#{YellowClrString}>{channelName}</color></i></b>]: <color=#{color}>{message}</color>", go);
+            LogInternal(channelName, message, DebugLogType.Warning, go);
         }
 
         public static void LogError(string channelName, string message, GameObject go = null)
         {
-            var debugChannel = _debugManager.GetDebugChannel(channelName);
-            if (!debugChannel.CanBeDebugged) return;
+            LogInternal(channelName, message, DebugLogType.Error, go);
+        }
 
-            debugChannel.DebugDataDict.TryGetValue(DebugLogType.Error, out Color clr);
+        private static void LogInternal(string channelName, string message, DebugLogType logType, GameObject go)
+        {
+            // Manager exists
+            if (_debugManager)
+            {
+                var debugChannel = _debugManager.GetDebugChannel(channelName);
 
-            string color = ColorUtility.ToHtmlStringRGBA(clr);
+                if (!debugChannel.CanBeDebugged) return;
 
-            UnityEngine.Debug.LogError(
-                $"[<b><i><color=#{RedClrString}>{channelName}</color></i></b>]: <color=#{color}>{message}</color>", go);
+                var wrapper = debugChannel.GetDebugDataWrapper(logType);
+                var messageColor = ColorUtility.ToHtmlStringRGBA(wrapper.messageColor);
+                var headingColor = ColorUtility.ToHtmlStringRGBA(wrapper.headingColor);
+
+                string formatted =
+                    $"[<b><i><color=#{headingColor}>{channelName}</color></i></b>]: <color=#{messageColor}>{message}</color>";
+
+                switch (logType)
+                {
+                    case DebugLogType.Debug:
+                        UnityEngine.Debug.Log(formatted, go);
+                        break;
+
+                    case DebugLogType.Warning:
+                        UnityEngine.Debug.LogWarning(formatted, go);
+                        break;
+
+                    case DebugLogType.Error:
+                        UnityEngine.Debug.LogError(formatted, go);
+                        break;
+                }
+
+                return;
+            }
+
+            // Fallback if manager missing
+            Color fallbackColor = GetFallbackColor(logType);
+            var colorHex = ColorUtility.ToHtmlStringRGBA(fallbackColor);
+
+            UnityEngine.Debug.Log(
+                $"[<b><i><color=#{colorHex}>{channelName}</color></i></b>]: <color=#{colorHex}>{message}</color>",
+                go);
+        }
+
+        private static Color GetFallbackColor(DebugLogType logType)
+        {
+            switch (logType)
+            {
+                case DebugLogType.Warning:
+                    return Color.yellowNice;
+
+                case DebugLogType.Error:
+                    return Color.red;
+
+                case DebugLogType.Debug:
+                default:
+                    return Color.white;
+            }
         }
     }
 }

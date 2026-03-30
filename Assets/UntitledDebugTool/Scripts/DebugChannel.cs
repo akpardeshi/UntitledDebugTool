@@ -40,7 +40,11 @@ namespace ModularDebugSystem.Debug
 
             foreach (var wrapper in debugData)
             {
-                _debugDataDict.TryAdd(wrapper.logType, wrapper);
+                if (!_debugDataDict.TryAdd(wrapper.logType, wrapper))
+                {
+                    UnityEngine.Debug.LogWarning(
+                        $"[DebugChannel] Duplicate logType '{wrapper.logType}' in channel '{moduleName}'. Second entry ignored.");
+                }
             }
         }
 

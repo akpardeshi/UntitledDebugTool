@@ -5,6 +5,12 @@ namespace ModularDebugSystem.Debug
     public static class ModularDebugger
     {
         private static DebugManager _debugManager;
+        
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics()
+        {
+            _debugManager = null;
+        }
 
         public static void Initialize(DebugManager debugManager)
         {
@@ -28,6 +34,8 @@ namespace ModularDebugSystem.Debug
 
         private static void LogInternal(string channelName, string message, DebugLogType logType, GameObject go)
         {
+            string formatted;
+            
             // Manager exists
             if (_debugManager)
             {
@@ -39,7 +47,7 @@ namespace ModularDebugSystem.Debug
                 var messageColor = ColorUtility.ToHtmlStringRGBA(wrapper.messageColor);
                 var headingColor = ColorUtility.ToHtmlStringRGBA(wrapper.headingColor);
 
-                string formatted =
+                formatted =
                     $"[<b><i><color=#{headingColor}>{channelName}</color></i></b>]: <color=#{messageColor}>{message}</color>";
 
                 switch (logType)
@@ -64,9 +72,21 @@ namespace ModularDebugSystem.Debug
             Color fallbackColor = GetFallbackColor(logType);
             var colorHex = ColorUtility.ToHtmlStringRGBA(fallbackColor);
 
-            UnityEngine.Debug.Log(
-                $"[<b><i><color=#{colorHex}>{channelName}</color></i></b>]: <color=#{colorHex}>{message}</color>",
-                go);
+            formatted =
+                $"[<b><i><color=#{colorHex}>{channelName}</color></i></b>]: <color=#{colorHex}>{message}</color>"; 
+            
+            switch (logType)
+            {
+                case DebugLogType.Warning:
+                    UnityEngine.Debug.LogWarning(formatted, go);
+                    break;
+                case DebugLogType.Error:
+                    UnityEngine.Debug.LogError(formatted, go);
+                    break;
+                default:
+                    UnityEngine.Debug.Log(formatted, go);
+                    break;
+            }
         }
 
         private static Color GetFallbackColor(DebugLogType logType)

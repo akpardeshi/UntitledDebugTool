@@ -38,6 +38,12 @@ namespace ModularDebugSystem.Debug
             
             foreach (DebugChannel debugChannel in debugChannels)
             {
+                if (debugChannel == null)
+                {
+                    UnityEngine.Debug.LogWarning("[DebugManager] Null entry found in debugChannels array.");
+                    continue;
+                }
+                
                 if (_debugChannels.TryAdd(debugChannel.ModuleName, debugChannel)) continue;
 
                 UnityEngine.Debug.Log(

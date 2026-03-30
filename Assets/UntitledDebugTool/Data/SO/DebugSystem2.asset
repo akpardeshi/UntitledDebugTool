@@ -15,7 +15,7 @@ MonoBehaviour:
   canBeDebugged: 1
   moduleName: Debug System 2
   debugData:
-  - logType: 0
+  - logType: 1
     messageColor: {r: 0, g: 0.7735849, b: 0.30678976, a: 1}
     headingColor: {r: 0.4292453, g: 1, b: 0.77169806, a: 1}
   - logType: 2

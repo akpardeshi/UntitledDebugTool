@@ -8,7 +8,7 @@ namespace ModularDebugSystem.Debug
         
         void Start()
         {
-            Invoke(nameof(TestLog), 0.25f);
+            TestLog();
         }
         
         #endregion
@@ -23,6 +23,5 @@ namespace ModularDebugSystem.Debug
             ModularDebugger.LogWarning($"Debug System 2", "Hello World Warning");
             ModularDebugger.LogError($"Debug System 2", "Hello World Error");
         }
-        
     }
 }

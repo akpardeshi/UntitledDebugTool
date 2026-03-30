@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7056046101897fc4296e37a92dc57b6b, type: 3}
+  m_Name: DebugSystem2
+  m_EditorClassIdentifier: Assembly-CSharp::ModularDebugSystem.Debug.DebugChannel
+  canBeDebugged: 1
+  moduleName: Debug System 2
+  debugData:
+  - logType: 1
+    messageColor: {r: 0, g: 0.7735849, b: 0.30678976, a: 1}
+    headingColor: {r: 0.4292453, g: 1, b: 0.77169806, a: 1}
+  - logType: 2
+    messageColor: {r: 0, g: 0.57421327, b: 1, a: 1}
+    headingColor: {r: 0.55580986, g: 1, b: 0, a: 1}
+  - logType: 3
+    messageColor: {r: 1, g: 0.50211763, b: 0, a: 1}
+    headingColor: {r: 0.745283, g: 0, b: 0, a: 1}

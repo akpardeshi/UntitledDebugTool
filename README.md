@@ -185,5 +185,3 @@ I built my own version to understand the architecture behind that kind of system
 Building it surfaced the real edge cases: domain reload clearing static references, initialisation ordering between the bootstrapper and manager, and making sure the fallback path preserved log severity rather than silently downgrading errors to plain log messages.
 
 ---
-
-## Author

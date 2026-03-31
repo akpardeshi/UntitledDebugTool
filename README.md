@@ -1,4 +1,4 @@
-# Modular Debug System
+# Untitled Debug System
 
 A channelled logging system for Unity that lets you enable or silence debug output per-module from the Inspector — without touching code. Built as the foundation for a full runtime debug console.
 

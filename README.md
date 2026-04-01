@@ -52,25 +52,6 @@ UnityEngine.Debug                        ──── final output, or fallback 
 
 ---
 
-## Project structure
-
-```
-ModularDebugSystem/
-├── Debug/
-│   ├── ModularDebugger.cs          Static façade — public API
-│   ├── DebugManager.cs             Channel registry (MonoBehaviour)
-│   ├── DebugBootstrapper.cs        Scene entry point — wires façade to manager
-│   ├── DebugChannel.cs             Per-module ScriptableObject asset
-│   ├── DebugEnums.cs               DebugLogType enum
-│   ├── DebugStructs.cs             DebugDataWrapper struct
-│   └── DebugTestScript.cs          Usage example
-└── EventChannel/
-    └── RegisterDebugChannel.cs     Optional SO event channel integration
-                                    (requires ScriptableEventChannelBase<T>)
-```
-
----
-
 ## Setup
 
 **1. Add to your scene**
@@ -138,6 +119,14 @@ Each `DebugChannel` ScriptableObject exposes:
 `DebugDataWrapper` holds a `DebugLogType`, a `messageColor`, and a `headingColor`. If no entry exists for a given log type, the channel falls back to sensible defaults — white for debug, yellow for warning, red for error.
 
 Duplicate `logType` entries in the array are detected and warned in the console during `OnValidate` — the second entry is ignored.
+
+---
+
+## Video Showcase
+
+Watch the system in action:
+
+**YouTube Demo:** [https://youtu.be/bhHLWJkCaKY](https://youtu.be/bhHLWJkCaKY)
 
 ---
 
